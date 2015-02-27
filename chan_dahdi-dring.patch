@@ -1,0 +1,20 @@
+Index: channels/chan_dahdi.c
+===================================================================
+--- channels/chan_dahdi.c	(revision 432176)
++++ channels/chan_dahdi.c	(working copy)
+@@ -1925,45 +1929,59 @@
+ 			}
+ 		}
+ 	}
+ 	if ((checkaftercid && usedistinctiveringdetection) || !checkaftercid) {
+ 		/* this only shows up if you have n of the dring patterns filled in */
+ 		ast_verb(3, "Detected ring pattern: %d,%d,%d\n",ringdata[0],ringdata[1],ringdata[2]);
++						{
++							char temp[32];
++							sprintf(temp, "%d", ringdata[0]);
++							pbx_builtin_setvar_helper(chan, "DRING1", temp);
++							sprintf(temp, "%d", ringdata[1]);
++							pbx_builtin_setvar_helper(chan, "DRING2", temp);
++							sprintf(temp, "%d", ringdata[2]);
++							pbx_builtin_setvar_helper(chan, "DRING3", temp);
++						}
